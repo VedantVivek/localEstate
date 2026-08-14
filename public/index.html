@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LocaleEstate — homes for sale across India.">
+  <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <title>LocaleEstate</title>
+</head>
+<body>
+  <header class="site-header" id="header">
+    <a class="logo" href="#top">LocaleEstate</a>
+    <nav class="site-nav">
+      <a href="#board">Board</a>
+      <a href="#pulse">Street Sense</a>
+      <a href="#desk">Desk</a>
+      <a href="#saved">Saved</a>
+      <a href="#note">Contact</a>
+      <button type="button" class="btn-nav" id="auth-open">Sign in</button>
+      <span id="nav-user" class="who" hidden></span>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="home">
+      <img class="hero-photo" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80" alt="">
+      <div class="hero-copy">
+        <p class="logo-lg">LocaleEstate</p>
+        <h1>India homes, written the way a desk actually talks about them.</h1>
+        <form id="search-form">
+          <input id="location-search" name="q" type="search" list="city-suggestions" placeholder="Mumbai, Delhi, Goa, India…">
+          <button type="submit">Search the board</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="board" id="board">
+      <aside class="board-side">
+        <h2>Filter</h2>
+        <form id="filter-form" class="filters">
+          <label>Keyword<input name="q" type="search" list="city-suggestions"></label>
+          <datalist id="city-suggestions"></datalist>
+          <label>City<select name="city" id="city-filter"><option value="">All India</option></select></label>
+          <label>State<select name="state" id="state-filter"><option value="">Any</option></select></label>
+          <label>Beds<select name="beds"><option value="0">Any</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+          <label>Baths<select name="baths"><option value="0">Any</option><option value="2">2+</option><option value="3">3+</option></select></label>
+          <label>Sort
+            <select name="sort">
+              <option value="price_desc">Price high–low</option>
+              <option value="price_asc">Price low–high</option>
+              <option value="newest">Newest</option>
+              <option value="area">Largest</option>
+            </select>
+          </label>
+          <label>Tag<select name="tag" id="tag-filter"><option value="">Any</option></select></label>
+          <button type="submit">Apply</button>
+        </form>
+        <p class="hint">Tip: search “India” to see the full board.</p>
+      </aside>
+
+      <div class="board-main">
+        <div class="board-head">
+          <h2>The board</h2>
+          <p id="popular-status"></p>
+        </div>
+        <div id="properties-grid" class="listing-list"></div>
+        <div class="compare-bar" id="compare-bar" hidden>
+          Comparing: <span id="compare-labels"></span>
+          <button type="button" id="compare-run">Compare</button>
+          <button type="button" id="compare-clear" class="linkish">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse" id="pulse">
+      <h2>Street Sense</h2>
+      <p class="pulse-lead">Not a portal dump — each home gets a <strong>Deal Radar</strong> vs its city lane and a short street read only a desk would write.</p>
+      <div class="pulse-grid">
+        <article><h3>Deal Radar</h3><p><strong>Below city average</strong> = cheaper than similar homes here. <strong>Above city average</strong> = costlier for this city. <strong>Fair for city</strong> = around the usual price.</p></article>
+        <article><h3>Street Sense</h3><p>Three honest cues — metro vs car, family scale, coastal evenings — so you know the lane before the brochure.</p></article>
+        <article><h3>Visit Kit</h3><p>When you book a tour, we email the desk a site-visit pack: ID, society fees, daylight lane walk.</p></article>
+      </div>
+    </section>
+
+    <section class="desk" id="desk">
+      <div class="desk-col">
+        <h2>Home loan estimate</h2>
+        <p class="desk-lead">Enter a home price and see a rough monthly EMI. This is only a quick guide — not bank advice.</p>
+        <form id="mortgage-form" class="stack-form mortgage-form">
+          <label>
+            <span class="field-label">Home price (₹ / $)</span>
+            <input type="number" name="price" value="185000" min="1" required>
+          </label>
+          <label>
+            <span class="field-label">Down payment (%)</span>
+            <input type="number" name="down" value="20" min="0" max="90" required>
+          </label>
+          <label>
+            <span class="field-label">Loan period (years)</span>
+            <input type="number" name="years" value="20" min="1" max="40" required>
+          </label>
+          <label>
+            <span class="field-label">Interest rate (% per year)</span>
+            <input type="number" name="rate" value="8.5" step="0.1" min="0" required>
+          </label>
+          <button type="submit">Show monthly estimate</button>
+        </form>
+        <p id="mortgage-result" class="result"></p>
+        <p class="hint">Tip: try the price of any home on the board to compare EMIs.</p>
+      </div>
+      <div class="desk-col desk-col--shift">
+        <h2>Your booked tours</h2>
+        <p class="desk-lead">Site visits you have scheduled after signing in.</p>
+        <div id="tours-list"><p class="muted">Sign in to see scheduled visits.</p></div>
+      </div>
+    </section>
+
+    <section class="saved" id="saved">
+      <h2>Saved for later</h2>
+      <div id="fav-grid" class="saved-list"><p class="muted">Sign in, then hit Save on a listing.</p></div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-text">
+        <h2>How we work</h2>
+        <p>We’re a small listing desk. Prices stay put once they’re posted. If something looks off against the neighbourhood, we say so.</p>
+        <ul class="plain-list">
+          <li>Rates we can defend in writing</li>
+          <li>No surprise fee stack after you say yes</li>
+          <li>Comps from the same pin code, not wishful thinking</li>
+        </ul>
+      </div>
+      <img src="./img/value.jpg" alt="Lived-in living room" class="about-photo">
+    </section>
+
+    <section class="note" id="note">
+      <div>
+        <h2>Send a note</h2>
+        <p>Questions about a listing, a tour time, or a city you don’t see yet.</p>
+        <form id="contact-form" class="stack-form">
+          <label>Name <input name="name" required></label>
+          <label>Email <input type="email" name="email" required></label>
+          <label>Phone <input name="phone"></label>
+          <label>Channel
+            <select name="channel">
+              <option value="message">Email</option>
+              <option value="call">Call</option>
+              <option value="chat">Chat</option>
+            </select>
+          </label>
+          <label>Message <textarea name="message" rows="4" required></textarea></label>
+          <button type="submit">Send</button>
+          <p id="contact-note" class="form-note"></p>
+        </form>
+      </div>
+      <div class="note-side">
+        <img src="./img/contact.png" alt="Home exterior">
+        <form id="subscribe-form" class="stack-form">
+          <h3>Mailing list</h3>
+          <label>Email <input id="newsletter-email" type="email" name="email" required></label>
+          <button type="submit">Add me</button>
+          <p id="subscribe-note" class="form-note"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <p class="footer-logo">LocaleEstate</p>
+      <p>India listings desk — honest pins, no portal noise.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#board">Board</a>
+      <a href="#note">Contact</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+    </div>
+    <p class="footer-copy">© 2026 LocaleEstate</p>
+  </footer>
+
+  <div class="modal" id="auth-modal" hidden>
+    <div class="modal-card">
+      <button type="button" class="modal-x" id="auth-close">close</button>
+      <h2>Sign in</h2>
+      <p class="muted">Demo account: demo@localeestate.com / demo1234</p>
+      <div class="tabs">
+        <button type="button" class="auth-tab active" data-tab="login">Sign in</button>
+        <button type="button" class="auth-tab" data-tab="register">Register</button>
+      </div>
+      <form id="login-form" class="stack-form">
+        <label>Email <input type="email" name="email" value="demo@localeestate.com" required></label>
+        <label>Password <input type="password" name="password" value="demo1234" required></label>
+        <button type="submit">Sign in</button>
+      </form>
+      <form id="register-form" class="stack-form" hidden>
+        <label>Name <input name="name" required></label>
+        <label>Email <input type="email" name="email" required></label>
+        <label>Password <input type="password" name="password" minlength="6" required></label>
+        <button type="submit">Create account</button>
+      </form>
+      <p id="auth-note" class="form-note"></p>
+    </div>
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
