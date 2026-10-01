@@ -2,6 +2,12 @@
 
 Full-stack neighborhood real estate app (Express + MongoDB). Ready for Vercel.
 
+**Live demo:** https://local-estate-main.vercel.app
+
+[![Playwright Tests](https://github.com/VedantVivek/localestate-playwright-tests/actions/workflows/playwright.yml/badge.svg)](https://github.com/VedantVivek/localestate-playwright-tests/actions/workflows/playwright.yml)
+
+Automated UI and API tests for this app live in [localestate-playwright-tests](https://github.com/VedantVivek/localestate-playwright-tests) (Playwright + TypeScript, running in GitHub Actions).
+
 ## Setup
 1. Copy env file and fill in your Mongo URI (and optional SMTP):
 ```bash
