@@ -1,4 +1,4 @@
-# LocaleEstate
+# LocalEstate
 
 Full-stack neighborhood real estate app (Express + MongoDB). Ready for Vercel.
 
